@@ -1,0 +1,2 @@
+MONGO_URI=mongodb+srv://anoop:He3BrHGDNkU0hQpL@cluster0.bxsr5is.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+PORT=3000
