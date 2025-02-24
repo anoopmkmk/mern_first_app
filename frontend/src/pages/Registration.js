@@ -68,6 +68,18 @@ function Registration() {
           />
         </div>
 
+        <div>
+          <label>Email:</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
         <button type="submit">Register</button>
       </form>
 
