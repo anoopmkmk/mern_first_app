@@ -9,6 +9,7 @@ function Registration() {
     
     name: "",
     email: "",
+    password: "",
   });
 
   //const [formData, setFormData] = useState({ name: "", email: "" });
@@ -31,7 +32,7 @@ function Registration() {
       setTimeout(() => {
       navigate("/");
     }, 2000);
-      setFormData({ name: "", email: "" }); // Clear form
+      setFormData({ name: "", email: "", password: "" }); // Clear form
     } catch (error) {
       toast.error("Registration Failes!", { position: "top-right" });
 
@@ -69,12 +70,12 @@ function Registration() {
         </div>
 
         <div>
-          <label>Email:</label>
+          <label>Password:</label>
           <input
-            type="email"
-            name="email"
-            placeholder="Enter your email"
-            value={formData.email}
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            value={formData.password}
             onChange={handleChange}
             required
           />
