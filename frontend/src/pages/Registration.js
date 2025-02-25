@@ -56,7 +56,6 @@ function Registration() {
             required
           />
         </div>
-
         <div>
           <label>Email:</label>
           <input
@@ -68,7 +67,6 @@ function Registration() {
             required
           />
         </div>
-
         <div>
           <label>Password:</label>
           <input
