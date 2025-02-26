@@ -18,7 +18,9 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   });
 const User = require("./models/User");
 const userRoutes = require("./routes/userRoutes");
+const adminRoutes = require("./routes/userRoutes");
 app.use("/api", userRoutes); // Prefix routes with "/api"
+app.use("/api", adminRoutes);
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
 });
