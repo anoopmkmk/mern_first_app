@@ -1,44 +1,64 @@
 import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/auth.css";
 import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const AdminLogin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
     const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post("http://localhost:5001/api/admin/login", { email, password });
+
+            if (res.status === 200) {
+                const { token } = res.data;
+                localStorage.setItem("token", token); // Store token
+                toast.success("Login successful!", { position: "top-right" });
+                navigate("/dashboard"); // Redirect to dashboard
+            } else {
+                toast.error("Invalid credentials!", { position: "top-right" });
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Login error!", { position: "top-right" });
+        }
+    };
+
     return (
-        <div class="wrapper">
-            <div class="auth-content">
-                <div class="card">
-                    <div class="card-body text-center">
-                            <h6 class="mb-4 text-muted">Login to your account</h6>
-                            <form action="" method="">
-                                <div class="mb-3 text-start">
-                                    <label for="email" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" placeholder="Enter your email" required/>
-                                </div>
-                                <div class="mb-3 text-start">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" placeholder="Enter your password" required/>
-                                </div>
-                                <div class="mb-3 text-start">
-                                    <div class="form-check">
-                                    <input class="form-check-input" name="remember" type="checkbox" value="" id="check1"/>
-                                    <label class="form-check-label" for="check1">
+        <div className="wrapper">
+            <div className="auth-content">
+                <div className="card">
+                    <div className="card-body text-center">
+                        <h6 className="mb-4 text-muted">Login to your account</h6>
+                        <form onSubmit={handleLogin}>
+                            <div className="mb-3 text-start">
+                                <label htmlFor="email" className="form-label">Email address</label>
+                                <input type="email" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                            </div>
+                            <div className="mb-3 text-start">
+                                <label htmlFor="password" className="form-label">Password</label>
+                                <input type="password" className="form-control" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                            </div>
+                            <div className="mb-3 text-start">
+                                <div className="form-check">
+                                    <input className="form-check-input" type="checkbox" id="check1"/>
+                                    <label className="form-check-label" htmlFor="check1">
                                         Remember me on this device
                                     </label>
-                                    </div>
                                 </div>
-                                <button class="btn btn-primary mb-4">Login</button>
-                            </form>
-                        <p class="mb-2 text-muted">Forgot password? <a href="forgot-password.html">Reset</a></p>
-                        <p class="mb-0 text-muted">Don't have account yet? <a href="signup.html">Signup</a></p>
+                            </div>
+                            <button type="submit" className="btn btn-primary mb-4">Login</button>
+                        </form>
+                        <p className="mb-2 text-muted">Forgot password? <a href="forgot-password.html">Reset</a></p>
                     </div>
                 </div>
             </div>
         </div>
-        
     );
 };
 

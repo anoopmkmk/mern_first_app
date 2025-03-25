@@ -27,16 +27,15 @@ function Registration() {
       const response = await axios.post("http://localhost:5001/api/register", formData);
       console.log("Response:", response.data);
       toast.success("Registration Successful!", { position: "top-right" });
-
-    // ✅ Redirect to Home Page after 2 seconds
       setTimeout(() => {
       navigate("/");
     }, 2000);
       setFormData({ name: "", email: "", password: "" }); // Clear form
     } catch (error) {
+      console.log("Response:", error);
       toast.error("Registration Failes!", { position: "top-right" });
 
-    // ✅ Redirect to Home Page after 2 seconds
+    //Redirect to Home Page after 2 seconds
     
     }
   };
