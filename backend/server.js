@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const app = express();// ✅ Define app before using it
+const app = express();
 app.use(express.json());
 app.use(cors());
 
@@ -18,11 +18,9 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   });
 const User = require("./models/User");
 const userRoutes = require("./routes/userRoutes");
-const adminRoutes = require("./routes/userRoutes");
+const adminRoutes = require("./routes/adminRoutes.js");
 app.use("/api", userRoutes); // Prefix routes with "/api"
-app.use("/api", adminRoutes);
+app.use("/api/admin", adminRoutes);
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
 });
-
-
