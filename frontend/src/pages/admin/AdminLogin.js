@@ -1,29 +1,28 @@
-import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../../assets/css/auth.css";
 import "../../assets/vendor/bootstrap/css/bootstrap.min.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../../context/AuthContext";
+import React, { useState, useContext } from "react";
 
 const AdminLogin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { setUser } = useContext(AuthContext); // ✅ Move this outside handleLogin
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post("http://localhost:5001/api/admin/login", { email, password });
+            toast.success("Login successful!", { position: "top-right" });
 
-            if (res.status === 200) {
-                const { token } = res.data;
-                localStorage.setItem("token", token); // Store token
-                toast.success("Login successful!", { position: "top-right" });
-                navigate("/dashboard"); // Redirect to dashboard
-            } else {
-                toast.error("Invalid credentials!", { position: "top-right" });
-            }
+            const fakeToken = "123456"; // Simulate a JWT token
+            localStorage.setItem("token", fakeToken);
+            setUser({ token: fakeToken }); // ✅ Update auth state
+            navigate("/admin/dashboard", { replace: true }); 
         } catch (error) {
             toast.error(error.response?.data?.message || "Login error!", { position: "top-right" });
         }
