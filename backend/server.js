@@ -16,7 +16,6 @@ mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     name: String,
     email: String,
   });
-const User = require("./models/User");
 const userRoutes = require("./routes/userRoutes");
 const adminRoutes = require("./routes/adminRoutes.js");
 app.use("/api", userRoutes); // Prefix routes with "/api"

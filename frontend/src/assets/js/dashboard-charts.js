@@ -1,3 +1,5 @@
+
+window.addEventListener("DOMContentLoaded", function () {
 var trafficchart = document.getElementById("trafficflow");
 var saleschart = document.getElementById("sales");
 
@@ -63,4 +65,5 @@ options: {
         },
     },
 }
+});
 });

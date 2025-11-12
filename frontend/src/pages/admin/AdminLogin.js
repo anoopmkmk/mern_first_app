@@ -11,19 +11,24 @@ const AdminLogin = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const { setUser } = useContext(AuthContext); // ✅ Move this outside handleLogin
+    const { setUser } = useContext(AuthContext); //  Move this outside handleLogin
 
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.post("http://localhost:5001/api/admin/login", { email, password });
-            toast.success("Login successful!", { position: "top-right" });
-
-            const fakeToken = "123456"; // Simulate a JWT token
-            localStorage.setItem("token", fakeToken);
-            setUser({ token: fakeToken }); // ✅ Update auth state
-            navigate("/admin/dashboard", { replace: true }); 
+            const userData = {
+                name: res.data.admin.name,
+                email: res.data.admin.email,
+                token: "123456" // Replace with actual token
+              };
+          
+              localStorage.setItem("user", JSON.stringify(userData)); 
+              localStorage.setItem("token", userData.token); 
+             // setUser(userData)
+            navigate("/admin/dashboard", { replace: true });
         } catch (error) {
+            console.log(error);
             toast.error(error.response?.data?.message || "Login error!", { position: "top-right" });
         }
     };

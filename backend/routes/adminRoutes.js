@@ -21,6 +21,7 @@ const verifyToken = (req, res, next) => {
 router.post("/login", async (req, res) => {
     try {
 
+     
        
         const { email, password } = req.body;
 
@@ -36,9 +37,8 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
 
-        const token = jwt.sign({ id: admin._id, email: admin.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
-        res.json({ message: "Login successful", token });
-       // res.json({ message: "Login successful", admin });
+      //  const token = jwt.sign({ id: admin._id, email: admin.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        res.json({  admin });
 
     } catch (error) {
         console.error("Login Error:", error);
